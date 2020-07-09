@@ -14,6 +14,7 @@ It will be easier to build your extended social network if you have users to tes
 >>> sg = SocialGraph()
 >>> sg.populate_graph(10, 2)  # Creates 10 users with an average of 2 friends each
 >>> print(sg.friendships)
+ --> Person 1 is friends with person 8, 10, 5
 {1: {8, 10, 5}, 2: {10, 5, 7}, 3: {4}, 4: {9, 3}, 5: {8, 1, 2}, 6: {10}, 7: {2}, 8: {1, 5}, 9: {4}, 10: {1, 2, 6}}
 >>> sg = SocialGraph()
 >>> sg.populate_graph(10, 2)
@@ -47,8 +48,13 @@ Note that in this sample, Users 3, 4 and 9 are not in User 1's extended social n
 ## 3. Questions
 
 1. To create 100 users with an average of 10 friends each, how many times would you need to call `add_friendship()`? Why?
+-->  Would need to call this method 500 times as add_friendship method creates a bi-directional friendship between two people so total friendships created would be 1000, so we only need call add_friendship half the many times.
 
 2. If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended social network? What is the average degree of separation between a user and those in his/her extended network?
+
+--> percentage of other users will be in a particular user's extended social network: 
+:find number of length of keys in connections (-1 as dont count yourself) divided by total users, multiplied by 100 to get a percentage
+= 99% of users are in extended social network for user = almost everyone is friends with everyone 
 
 
 
