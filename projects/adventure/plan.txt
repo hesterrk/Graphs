@@ -1,0 +1,68 @@
+--> Thursdays project + fri sprint Challenge
+
+ABOUT AND WHAT TO DO:
+-We have a pre-generaed graph consists of 500 nodes (rooms) -> we have this info
+:nodes are connected to each other in the directions of north, south, east, west
+
+-Traverse by keeping track of which way direction (edges) you can go in (n, s, w, e) in order to go to another node (room)
+:when we start exploring, we can make the connections between the rooms
+:e.g if we chose to go south and we find the node (room 5 for e.g) we make a note that south leads us to this node (5)
+
+-Can go forward and back e.g if reach a point of no node, remove it from stack, travel back to previous node, check if that node has any explored directions if not go back to its previous node, or if it does explore that direction
+:when we backtrack, we need to add that backtrack direction to the list of directions! 
+:need a visited dict, with key as node number we are on and value being the directions we followed to get there)
+:graph is UNDIRECTED
+
+-We know we have finished traversing when we have 500 nodes in visited_dict
+
+-Traverse the graph with less than 2000 loops (2000 moves)
+
+-DFS: best choice
+:close to a maze problem and DFS is used to solve this 
+
+-TODO: fill in `traversal_path`
+:create OWN traversal graph, start on starting node (node0 for room 0)
+:visit every node (room) 
+:commands `player.current_room.id`, `player.current_room.get_exits()` and `player.travel(direction)` 
+:need a big visited dict which holds all the nodes we visit as keys and the value being a list of all directions travlled in from this node (will include some of the same directions if we need to backtrack onto the node)
+
+--`player.current_room.id` -> tells us the current node the player is on (attribute on the Player class)
+--player.current_room.get_exits()
+:get_exists() -> is a method on Room class which returns a list of directions/edges we can travel to from the current node we are on! (if the func returns none then we know we cannot travel to another node from current node)
+:so from the player's current node they are on, we can use this command to check before travelling to another node
+--`player.travel(direction)` -> is a method on the Player class, takes us to the next node (if not there is a node) this is based on the result of another method (get_room_in_direction()), 2nd method returns the node that is to the whatever direction we want to go in to that room, e.g if we want to go south, this will return the node that is south of current node --> takes us to next node in the direction we want to go in. It then, updates the player's current node to be the node we have travelled to
+
+--> get_room_in_direction <-- returns room in direction but doesnt move rooms -> use it to find the room from the random direction we have selected, and use that room to push onto stack next 
+
+1) Write an algorithm that picks a random unexplored direction from the player's current room (current node), travels and logs that direction, then loops
+:Make note for the current node (room) that whatever random direction gets picked (s, w, n, e) we need to update our visited dict with that node and direction:  
+
+--> say if the random direction was north 
+visited_dict = {
+
+    node_room_0: {'n': '?', 's': ?, 'w': '?', 'e': '?'},
+    node_room_2: {'n': 'node_room_0', 's': ?, 'w': '?', 'e': '?'}
+         
+}
+
+2) DFT algo 
+-When you reach a dead-end (i.e. a node with no unexplored paths left), walk back to the nearest node that does contain an unexplored path 
+
+
+-TESTING -- Run the tests by typing `python3 adv.py`
+:TEST WITH SMALLER GRAPHS 
+
+e.g BEFORE: start with node 0
+
+ node0: {'north': '?', 'south': '?', 'west': '?', 'east': '?' }
+
+
+e.g AFTER 500 nodes in dict 
+
+{
+    node0: {'north': 'node1', 'south': 'node7', 'west': 'node0', 'east': 'node3'  }
+    node1: {'north': 'node0', 'south': 'node5', 'west': 'node13', 'east': 'node14'  }
+   
+   up til ....node500
+
+}
